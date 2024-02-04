@@ -64,7 +64,7 @@ const images = [
   },
 ];
 const galleryUl = document.querySelector("gallery")
-
+galleryUl.innerHTML = createLi(images)
 function createLi(images) {
     return images.map(({preview, original, description}) => 
    `  <li class="gallery-item">
@@ -79,4 +79,3 @@ function createLi(images) {
 </li>`.join("")
 )
 }
-galleryUl.insertAdjacentHTML("afterbegin",createLi)
