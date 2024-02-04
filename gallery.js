@@ -63,8 +63,8 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
-const galleryUl = document.querySelector("gallery")
-galleryUl.innerHTML = createLi(images)
+const galleryUl = document.querySelector(".gallery")
+galleryUl.insertAdjacentHTML("afterbegin",createLi(images))
 function createLi(images) {
     return images.map(({preview, original, description}) => 
    `  <li class="gallery-item">
@@ -76,6 +76,24 @@ function createLi(images) {
       alt="${description}"
     />
   </a>
-</li>`.join("")
-)
+</li>`
+).join("")
 }
+
+galleryUl.addEventListener("click", event => {
+    event.preventDefault();
+
+    if (event.target === event.currentTarget) {
+        return;
+    }
+
+    const img = event.target.closest('.gallery-image');
+    
+    
+        const clickedOriginal = img.dataset.source;
+        const {original} = images.find(image => image.original === clickedOriginal);
+
+        basicLightbox.create(`<img src="${original}" />`).show();
+    
+});
+
